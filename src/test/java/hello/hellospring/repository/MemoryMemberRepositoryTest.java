@@ -40,12 +40,12 @@ class MemoryMemberRepositoryTest {
         member2.setName("spring2");
         repository.save(member2);
 
-        Member result= repository.findByName("spring1").get();
+        Member result = repository.findByName("spring1").orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
 
         assertThat(result).isEqualTo(member1);
     }
 
-    /*@Test
+    @Test
     public void findAll() {
         Member member1 = new Member();
         member1.setName("spring1");
@@ -58,5 +58,5 @@ class MemoryMemberRepositoryTest {
         List<Member> result = repository.findAll();
 
         assertThat(result.size()).isEqualTo(2);
-    }*/
+    }
 }

@@ -3,9 +3,7 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Optional;
 
@@ -18,12 +16,17 @@ import org.junit.jupiter.api.Test;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
     MemoryMemberRepository memberRepository = new MemoryMemberRepository();
 
+    @BeforeEach
+    public void beforeEach(){
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
     @AfterEach
     public void afterEach(){
-        MemberRepository.clearStore();
+        memberRepository.clearStore();
     }
     @Test
     void 회원가입() {
@@ -49,9 +52,9 @@ class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        IllegalStateException e =assertThrows(IllegalStateException.class, () -> memberService.join(member1));
+        IllegalStateException e =assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원 입니다");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
         /*try {
             memberService.join(member2);

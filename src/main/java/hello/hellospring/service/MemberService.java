@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 public class MemberService {
-    private final MemberRepository memberRepository;
+    private MemberRepository memberRepository;
+
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
+
     public Long join(Member member){
         //같은 이름이 있는 중복 회원X
         validateDuplicateMember(member);

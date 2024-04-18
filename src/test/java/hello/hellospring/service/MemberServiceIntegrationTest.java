@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 @Transactional
+//다시 롤백됨으로 DB에 영향을 주지 않음.
 class MemberServiceIntegrationTest {
 
     @Autowired MemberService memberService;
